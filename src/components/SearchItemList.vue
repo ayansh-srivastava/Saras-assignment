@@ -2,7 +2,7 @@
 import { defineProps, computed } from 'vue'
 import SearchItem from './SearchItem.vue'
 
-const { items, isDark } = defineProps({
+const { items, isDark, totalBooks } = defineProps({
     items: {
         type: Array,
         required: true
@@ -10,9 +10,13 @@ const { items, isDark } = defineProps({
     isDark: {
         type: Boolean,
         default: true
+    },
+    totalBooks: {
+        type: Number,
+        default: 0
     }
 })
-
+console.log('SearchItemList props:',totalBooks)
 const containerClasses = computed(() => [
     'w-full space-y-6',
 ])
@@ -45,7 +49,7 @@ const resultCountClasses = computed(() => [
             </svg>
             <span>Search Results</span>
             <span :class="resultCountClasses">
-                {{ items.length }} book{{ items.length !== 1 ? 's' : '' }} found
+                {{ totalBooks }} book{{ totalBooks !== 1 ? 's' : '' }} found
             </span>
         </div>
 
