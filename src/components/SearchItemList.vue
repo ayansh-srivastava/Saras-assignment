@@ -1,7 +1,7 @@
 <script setup>
-import { defineProps, computed } from 'vue'
+import { defineProps, computed, ref } from 'vue'
 import SearchItem from './SearchItem.vue'
-
+import WorkModal from './WorkModal.vue'
 const { items, isDark, totalBooks } = defineProps({
     items: {
         type: Array,
@@ -16,7 +16,9 @@ const { items, isDark, totalBooks } = defineProps({
         default: 0
     }
 })
-console.log('SearchItemList props:',totalBooks)
+const selectedWork = ref(null);
+const showModal = ref(false)
+console.log('SearchItemList props:', totalBooks)
 const containerClasses = computed(() => [
     'w-full space-y-6',
 ])
@@ -30,7 +32,20 @@ const gridClasses = computed(() => [
     'grid gap-4 auto-fit-columns',
     'grid-cols-1 md:grid-cols-2 xl:grid-cols-3',
 ])
+const handleSelect = async (key) => {
+    console.log('Selected item key:', key)
+    try {
+        const workRes = await fetch(`https://openlibrary.org${key}.json`)
+        const workData = await workRes.json()
+        console.log('Work data:', workData)
 
+        selectedWork.value = workData
+        showModal.value = true
+
+    } catch (error) {
+        console.error('Error fetching work data:', error)
+    }
+}
 const resultCountClasses = computed(() => [
     'text-sm font-medium px-3 py-1 rounded-full transition-colors duration-300',
     isDark
@@ -55,8 +70,10 @@ const resultCountClasses = computed(() => [
 
         <div :class="gridClasses">
             <SearchItem v-for="item in items" :key="item.id" :item="item.item" :isDark="isDark" class="animate-fadeInUp"
-                :style="{ animationDelay: `${items.indexOf(item) * 0.1}s` }" />
+                :itemKey="item.id" :style="{ animationDelay: `${items.indexOf(item) * 0.1}s` }"
+                @select="handleSelect" />
         </div>
+        <WorkModal :work="selectedWork" :visible="showModal" @close="showModal = false" />
     </div>
 </template>
 

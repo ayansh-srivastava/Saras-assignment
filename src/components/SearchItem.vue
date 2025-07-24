@@ -1,7 +1,7 @@
 <script setup>
 import { defineProps, computed } from 'vue'
 
-const { item, isDark } = defineProps({
+const { item, isDark, itemKey } = defineProps({
     item: {
         type: Object,
         required: true
@@ -9,9 +9,14 @@ const { item, isDark } = defineProps({
     isDark: {
         type: Boolean,
         default: true
+    },
+    itemKey: {
+        type: String,
+        required: true
     }
 })
-
+console.log(itemKey)
+const emit = defineEmits(['select'])
 const coverImageUrl = computed(() => {
     if (item.coverId) {
         return `https://covers.openlibrary.org/b/id/${item.coverId}-M.jpg`
@@ -50,7 +55,7 @@ console.log('SearchItem props:', item.title, item.author, item.year, item.coverI
 </script>
 
 <template>
-    <div :class="cardClasses">
+    <div :class="cardClasses" @click="$emit('select', itemKey)">
         <div class="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300"
             :class="isDark ? 'bg-gradient-to-br from-blue-500 to-purple-500' : 'bg-gradient-to-br from-blue-400 to-purple-400'">
         </div>
