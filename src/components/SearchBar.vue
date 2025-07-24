@@ -31,7 +31,6 @@ const iconStroke = computed(() => (props.isDark ? '#e5e7eb' : '#374151'))
 
 const debounceSearch = debounce(() => {
     emit('search', searchQuery.value)
-    console.log('Searching for:', searchQuery.value)
 }, 400)
 </script>
 

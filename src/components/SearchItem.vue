@@ -15,7 +15,6 @@ const { item, isDark, itemKey } = defineProps({
         required: true
     }
 })
-console.log(itemKey)
 const emit = defineEmits(['select'])
 const coverImageUrl = computed(() => {
     if (item.coverId) {
@@ -50,12 +49,11 @@ const yearClasses = computed(() => [
         ? 'text-gray-400 bg-gray-700/50 group-hover:text-gray-300 group-hover:bg-gray-600/60'
         : 'text-gray-500 bg-gray-100/80 group-hover:text-gray-600 group-hover:bg-gray-200/80'
 ])
-
-console.log('SearchItem props:', item.title, item.author, item.year, item.coverId)
+const authorName=item.author?.join(', ') || 'Unknown Author'
 </script>
 
 <template>
-    <div :class="cardClasses" @click="$emit('select', itemKey)">
+    <div :class="cardClasses" @click="$emit('select', {itemKey, authorName})">
         <div class="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300"
             :class="isDark ? 'bg-gradient-to-br from-blue-500 to-purple-500' : 'bg-gradient-to-br from-blue-400 to-purple-400'">
         </div>

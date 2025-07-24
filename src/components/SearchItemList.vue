@@ -18,7 +18,7 @@ const { items, isDark, totalBooks } = defineProps({
 })
 const selectedWork = ref(null);
 const showModal = ref(false)
-console.log('SearchItemList props:', totalBooks)
+const authName = ref('Unknown Author')
 const containerClasses = computed(() => [
     'w-full space-y-6',
 ])
@@ -32,12 +32,12 @@ const gridClasses = computed(() => [
     'grid gap-4 auto-fit-columns',
     'grid-cols-1 md:grid-cols-2 xl:grid-cols-3',
 ])
-const handleSelect = async (key) => {
-    console.log('Selected item key:', key)
+const handleSelect = async ({itemKey, authorName}) => {
     try {
-        const workRes = await fetch(`https://openlibrary.org${key}.json`)
+        authName.value = authorName
+
+        const workRes = await fetch(`https://openlibrary.org${itemKey}.json`)
         const workData = await workRes.json()
-        console.log('Work data:', workData)
 
         selectedWork.value = workData
         showModal.value = true
@@ -73,7 +73,7 @@ const resultCountClasses = computed(() => [
                 :itemKey="item.id" :style="{ animationDelay: `${items.indexOf(item) * 0.1}s` }"
                 @select="handleSelect" />
         </div>
-        <WorkModal :work="selectedWork" :visible="showModal" @close="showModal = false" />
+        <WorkModal :work="selectedWork" :visible="showModal" @close="showModal = false" :isDark="isDark" :authorName="authName || 'Unknown Author'" />
     </div>
 </template>
 
