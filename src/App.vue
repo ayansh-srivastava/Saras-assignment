@@ -1,9 +1,10 @@
 <script setup>
+  import SearchBar from './components/SearchBar.vue';
 </script>
 
 <template>
-    <div class="flex items-center bg-red-500 space-x-8 mb-8">
-        HelloWorld
+    <div>
+        <SearchBar />
       </div>
 </template>
 
