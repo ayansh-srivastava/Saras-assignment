@@ -4,7 +4,7 @@
         <div class="flex justify-between items-center h-20 px-6 max-w-7xl mx-auto">
 
             <div class="flex items-center space-x-3 logo-container">
-                <img src="../assets/logo1.png" alt="Books&Books Logo" class="w-12 h-12" />
+                <img src="../../public/assets/logo1.png" alt="Books&Books Logo" class="w-20 h-20" />
                 <div class="hidden sm:block">
                     <h1 class="text-xl font-bold" :class="isDark ? 'text-gray-100' : 'text-gray-900'">Books&Books</h1>
                     <p class="text-sm opacity-70" :class="isDark ? 'text-gray-300' : 'text-gray-600'">Discover Your Next
@@ -26,5 +26,13 @@ defineEmits(['toggle-theme'])
 <style scoped>
 .logo-container {
     animation: float 4s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 </style>

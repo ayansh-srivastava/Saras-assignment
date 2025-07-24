@@ -1,7 +1,13 @@
 
-# OpenLibrary Vue Search App
+# OpenLibrary Vue Search App 
 
 A responsive Vue.js + Tailwind CSS web app that allows users to search for books using the OpenLibrary API. Includes features like dark mode, infinite scroll or pagination, and detail previews for selected books.
+
+---
+
+🚀 Live Demo
+
+Check out the app live: https://friendly-rabanadas-714467.netlify.app/
 
 ---
 
